@@ -1,0 +1,2 @@
+add_executable(servertest server_test.cpp)
+target_link_libraries(servertest PUBLIC cheeky_companion)
