@@ -9,6 +9,7 @@
 #include "shared.hpp"
 
 #include <algorithm>
+#include <glm/glm.hpp>
 
 using CheekyLayer::logger;
 
@@ -56,6 +57,28 @@ namespace network
 			m_renderClient->init(globalDevice);
 
 			clients.push_back(m_renderClient);
+		}
+		if(type == serverbound::PacketType::Move)
+		{
+			serverbound::MovePacket* move = (serverbound::MovePacket*)data;
+			m_renderClient->m_position += glm::vec3{move->dx, move->dy, move->dz};
+		}
+		if(type == serverbound::PacketType::Rotate)
+		{
+			serverbound::RotatePacket* rotate = (serverbound::RotatePacket*)data;
+			m_renderClient->m_yaw = rotate->yaw;
+		}
+		if(type == serverbound::PacketType::Teleport)
+		{
+			serverbound::TeleportPacket* teleport = (serverbound::TeleportPacket*)data;
+			switch(teleport->target)
+			{
+				case serverbound::TeleportTarget::Origin:
+					m_renderClient->m_position = glm::vec3(0.0f, 0.0f, 0.0f);
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }

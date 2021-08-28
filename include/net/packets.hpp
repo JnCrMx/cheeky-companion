@@ -56,7 +56,8 @@ namespace network
 
 		enum TeleportTarget : uint8_t
 		{
-			Player
+			Player,
+			Origin
 		};
 
 		struct __attribute__((packed)) TeleportPacket
@@ -69,7 +70,8 @@ namespace network
 	{
 		enum PacketType : uint32_t
 		{
-			Disconnect
+			Disconnect,
+			Rumble
 		};
 
 		struct __attribute__((packed)) BasicHeader
@@ -84,12 +86,19 @@ namespace network
 			JoinDenied,
 			UnknownCompanion,
 			TooManyClients,
-			Kicked
+			Kicked,
+			ServerClosing
 		};
 
 		struct __attribute__((packed)) DisconnectPacket
 		{
 			DisconnectReason reason;
+		};
+
+		struct __attribute__((packed)) RumblePacket
+		{
+			float strength;
+			uint32_t duration;
 		};
 	}
 }

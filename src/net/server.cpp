@@ -165,6 +165,9 @@ namespace network
 			{
 				if(exit.wait_for(std::chrono::milliseconds(1)) == std::future_status::ready)
 				{
+					clientbound::DisconnectPacket disconnect{.reason = clientbound::DisconnectReason::ServerClosing};
+					send(client, clientbound::PacketType::Disconnect, &disconnect, sizeof(disconnect));
+
 					handleDisconnect(client);
 					close(fd);
 					m_clientSockets.erase(client);

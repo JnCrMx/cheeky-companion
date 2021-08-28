@@ -46,3 +46,4 @@ if(CHEEKY_COMPANION_DISCORD)
 endif()
 
 add_subdirectory(test)
+add_subdirectory(clients)

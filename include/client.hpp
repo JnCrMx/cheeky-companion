@@ -19,6 +19,10 @@ class render_client
 		
 		VkDescriptorSet descriptor_set() {return m_descriptorSet;}
 		std::string companion() {return m_companion;}
+
+		glm::vec3 m_position;
+		float m_yaw;
+		float m_pitch;
 	private:
 		struct ClientVariables
 		{

@@ -133,11 +133,8 @@ void render_client::destroy(VkDevice device)
 
 void render_client::update()
 {
-	float t = (((generalVariables->seconds % 10) + generalVariables->partial_seconds)/10) * 2*std::numbers::pi;
-	float x = 10*std::sin(t);
-	float y = 0*std::sin(t);
-	float z = 0*std::sin(t);
-
-	m_variables->matrix = glm::translate(glm::mat4(1.0), glm::vec3(x, z, z));
+	glm::mat4 rotate = glm::rotate(glm::mat4(1.0), m_yaw, glm::vec3(0.0, 1.0, 0.0));
+	glm::mat4 translate = glm::translate(glm::mat4(1.0), m_position);
+	m_variables->matrix = translate * rotate;
 	//m_variables->matrix = glm::mat4(1.0);
 }
